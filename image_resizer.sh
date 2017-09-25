@@ -1,4 +1,32 @@
 #!/bin/bash
+#
+# Resize images to given dimensions.
+#
+# * Put this file into some dir ex: ~/thunar-actions/
+# * Make it executable: chmod +x
+#
+#
+# Required Software:
+# -------------------------
+#   * convert
+#
+#
+# Thunar Integration
+# ------------------------
+#
+#   Command:      ~/thunar-actions/image_resizer.sh %F
+#   File Pattern: *
+#   Appear On:    Image Files
+#
+#
+# Usage:
+# -------------------------
+#   convert-to-jpg.sh -f <filename>
+#
+#     required:
+#      -f    input filename
+#
+
 guitool=zenity
 
 exit_me(){
