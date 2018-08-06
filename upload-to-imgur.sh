@@ -9,6 +9,7 @@
 # Required Software:
 # -------------------------
 #   * zenity
+#   * xclip
 #   * curl
 #	* gawk
 #
@@ -135,6 +136,9 @@ rm "${TMPFILE}"
 
 URL="$(echo "${TEXT}" | grep -E -m 1 -o "<link>(.*)</link>" | sed -e 's,.*<link>\([^<]*\)</link>.*,\1,g')"
 ZTEXT="Direct URL: <a href=\"$URL\">$URL</a>"
+
+# send to clip
+echo $URL | xclip -sel clip
 
 #for ((i = 0; i < ${#urls[@]}; i++))
 #do
