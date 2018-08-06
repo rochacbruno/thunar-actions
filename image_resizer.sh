@@ -50,7 +50,7 @@ else
 fi
 
 # Dialog box to choose thumb's size
-SIZE="$( $guitool --list --height=300 --title="Choose the thumbnail's size" --text="Select the resolution for the images to convert" --radiolist --column=$"Check" --column=$"Size" "" "Auto (for photos)" "" "Same" "" "320x240" "" "640x480" "" "800x600" "" "1024x768" "" "2048x1080" "" "4096x2160" "" "7680x4320" || echo cancel )"
+SIZE="$( $guitool --list --height=300 --title="Choose the thumbnail's size" --text="Select the resolution for the images to convert" --radiolist --column=$"Check" --column=$"Size" "" "Auto (for photos)" "" "Same" "" "20x15" "" "40x30" "" "80x60" "" "160x120" "" "250x250" "" "320x240" "" "640x480" "" "800x600" "" "1024x768" "" "2048x1080" "" "4096x2160" "" "7680x4320" || echo cancel )"
 [[ "$SIZE" = "cancel" ]] && exit
 if [[ "$SIZE" = "" ]]; then
     $guitool --error --text="Size not defined by user. Please choose a size to use. "
