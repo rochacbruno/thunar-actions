@@ -50,7 +50,7 @@ else
 fi
 
 # Dialog box to choose thumb's size
-SIZE="$( $guitool --list --height=300 --title="Choose the thumbnail's size" --text="Select the resolution for the images to convert" --radiolist --column=$"Check" --column=$"Size" "" "Auto (for photos)" "" "Same" "" "20x15" "" "40x30" "" "80x60" "" "160x120" "" "250x250" "" "320x240" "" "640x480" "" "800x600" "" "1024x768" "" "2048x1080" "" "4096x2160" "" "7680x4320" || echo cancel )"
+SIZE="$( $guitool --list --height=300 --title="Choose the thumbnail's size" --text="Select the resolution for the images to convert" --radiolist --column=$"Check" --column=$"Size" "" "Auto (for photos)" "" "Same" "" "20x15" "" "40x30" "" "80x60" "" "160x120" "" "250x250" "" "320x240" "" "640x480" "" "800x600" "" "1024x768" "" "2048x1080" "" "4096x2160" "" "7680x4320" "" "28x28" "" "56x56" "" "112x112" || echo cancel )"
 [[ "$SIZE" = "cancel" ]] && exit
 if [[ "$SIZE" = "" ]]; then
     $guitool --error --text="Size not defined by user. Please choose a size to use. "
@@ -102,20 +102,20 @@ mkdir -p "_resized"
        echo -e "# Converting: \t ${filename}"
 
        if [[ "$SIZE" = "Same" ]] ; then
-	   convert -quality $QUALITY "${file}" "_resized/${filename%\.*}.${ext}"
+	   convert -quality $QUALITY "${file}" "_resized/${filename%\.*}_${SIZE}.${ext}"
        else
 	   if [[ "$SIZE" = "Auto (for photos)" ]] ; then
 	       size_horiz="$( identify "$file" | tr ' ' '\n' | grep -E "[[:digit:]]+x[[:digit:]]+" | head -1 | sed -e 's|x.*$||g' )"
 	       if [[ "$size_horiz" -lt 2400 ]] ; then
 		   # no need to resize images smaller than 2400
-		   convert -quality $QUALITY "${file}" "_resized/${filename%\.*}.${ext}"
+		   convert -quality $QUALITY "${file}" "_resized/${filename%\.*}_${SIZE}.${ext}"
 	       else
 		   # 2 / 3 of the original size
 		   size_horiz_resized="$( echo "( $size_horiz / 3 ) * 2" | bc -l | sed -e 's|\.*$||g' )"
-		   convert -resize ${size_horiz_resized}x${size_horiz_resized} -quality $QUALITY "${file}" "_resized/${filename%\.*}.${ext}"
+		   convert -resize ${size_horiz_resized}x${size_horiz_resized} -quality $QUALITY "${file}" "_resized/${filename%\.*}_${SIZE}.${ext}"
 	       fi
 	   else
-	       convert -resize $SIZE -quality $QUALITY "${file}" "_resized/${filename%\.*}.${ext}"
+	       convert -resize $SIZE -quality $QUALITY "${file}" "_resized/${filename%\.*}_${SIZE}.${ext}"
 	   fi
        fi
 
