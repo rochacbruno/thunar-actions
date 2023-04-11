@@ -96,6 +96,6 @@ fi
 [ -n "${t}" ]				&& TITLE=$t		|| TITLE="Pasting to gist: $(basename "${f}")"
 
 
-gist-paste --private --shorten --copy "${f}" \
+gist --private --shorten --copy "${f}" \
 	| zenity --width=${WIDTH} --height=${HEIGHT} --text-info --title "${TITLE}"
 exit $?
